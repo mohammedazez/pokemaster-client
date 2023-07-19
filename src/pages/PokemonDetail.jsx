@@ -97,7 +97,6 @@ const PokemonDetail = () => {
         cancelButtonText: '<i class="fa fa-thumbs-down">ok</i>',
       }).then((result) => {
         if (result.isConfirmed) {
-          // Display the form and handle its submission
           Swal.fire({
             title: "Add to favorite",
             html: `<input type="text" id="nickname" class="swal2-input" placeholder="Input Nickname">
@@ -115,17 +114,13 @@ const PokemonDetail = () => {
               return { nickname: nickname, number: number };
             },
           }).then((result) => {
-            insert.pokemon_name = result.value.nickname;
-            insert.pokemon_picture = `https://img.pokemondb.net/artwork/large/${listPokemonDetail.name}.jpg`;
-            insert.number = result.value.number;
+            if (result.value) {
+              insert.pokemon_name = result.value.nickname;
+              insert.pokemon_picture = `https://img.pokemondb.net/artwork/large/${listPokemonDetail.name}.jpg`;
+              insert.number = result.value.number;
 
-            dispatch(setInsertPokemonAction(insert));
-            Swal.fire({
-              icon: "success",
-              title: "Your pokemon has been saved",
-              showConfirmButton: false,
-              timer: 1500,
-            });
+              dispatch(setInsertPokemonAction(insert));
+            }
           });
         }
       });

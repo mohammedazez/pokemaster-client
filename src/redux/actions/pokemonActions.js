@@ -10,6 +10,7 @@ import {
 } from "../actionsType/pokemonType";
 import axios from "../../APIs/pokemonApi";
 import catchPokemon from "../../APIs/catchApi";
+import Swal from "sweetalert2";
 
 export const catchPokemonAction = () => async (dispatch) => {
   try {
@@ -40,7 +41,14 @@ export const setInsertPokemonAction = (values) => async (dispatch) => {
       url: "/release-pokemon",
       data: reqBody,
     });
-    console.log("ini insert", insert.data);
+
+    Swal.fire({
+      icon: "success",
+      title: "Your pokemon has been saved",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+
     dispatch({
       type: INSERT_POKEMON,
       payload: insert.data,

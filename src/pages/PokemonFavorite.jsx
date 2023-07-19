@@ -28,16 +28,18 @@ const PokemonFavorite = () => {
         return { nickname: nickname };
       },
     }).then((result) => {
-      let insert = "";
-      insert = result.value.nickname;
-      dispatch(setUpdatePokemonAction(insert, id));
-      Swal.fire({
-        icon: "success",
-        title: "Your pokemon has been update",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      window.location.reload();
+      if (result.value) {
+        let insert = "";
+        insert = result.value.nickname;
+        dispatch(setUpdatePokemonAction(insert, id));
+        Swal.fire({
+          icon: "success",
+          title: "Your pokemon has been update",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        window.location.reload();
+      }
     });
   };
 
