@@ -14,7 +14,7 @@ const PokemonFavorite = () => {
     dispatch(pokemonAction.fetchPokemonFavoriteAction());
   }, [dispatch]);
 
-  const handleCatch = () => {
+  const handleCatch = (id) => {
     Swal.fire({
       title: "Update Pokemon",
       html: `<input type="text" id="nickname" class="swal2-input" placeholder="Nickname">`,
@@ -23,13 +23,12 @@ const PokemonFavorite = () => {
       preConfirm: () => {
         const nickname = Swal.getPopup().querySelector("#nickname").value;
         if (!nickname) {
-          Swal.showValidationMessage(`Please enter lnickname`);
+          Swal.showValidationMessage(`Please enter nickname`);
         }
         return { nickname: nickname };
       },
     }).then((result) => {
       let insert = "";
-      let id = "eae36311-e42e-4999-b707-ad9163fc92d7";
       insert = result.value.nickname;
       dispatch(setUpdatePokemonAction(insert, id));
       Swal.fire({
@@ -100,7 +99,9 @@ const PokemonFavorite = () => {
                         </h4>
                         <p className="card-title">Number: {item.number}</p>
                       </div>
-                      <Button onClick={handleCatch}>Update</Button>
+                      <Button onClick={() => handleCatch(item.id)}>
+                        Update
+                      </Button>
                     </div>
                   </div>
                 );
