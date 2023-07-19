@@ -6,6 +6,7 @@ import {
   CATCH_POKEMON,
   INSERT_POKEMON,
   FETCH_POKEMON_FAVORITE,
+  UPDATE_POKEMON,
 } from "../actionsType/pokemonType";
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
   dataCatch: {},
   // insertPokemon: {},
   dataPokemonFavorite: [],
+  updatePokemon: {},
 };
 
 const pokemonReducer = (state = initialState, action) => {
@@ -54,6 +56,11 @@ const pokemonReducer = (state = initialState, action) => {
       return {
         ...state,
         dataPokemonFavorite: action.payload,
+      };
+    case UPDATE_POKEMON:
+      return {
+        ...state,
+        updatePokemon: action.payload,
       };
     default:
       return state;

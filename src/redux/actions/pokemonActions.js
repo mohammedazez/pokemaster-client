@@ -6,6 +6,7 @@ import {
   CATCH_POKEMON,
   INSERT_POKEMON,
   FETCH_POKEMON_FAVORITE,
+  UPDATE_POKEMON,
 } from "../actionsType/pokemonType";
 import axios from "../../APIs/pokemonApi";
 import catchPokemon from "../../APIs/catchApi";
@@ -34,15 +35,36 @@ export const setInsertPokemonAction = (values) => async (dispatch) => {
       pokemon_picture: values.pokemon_picture,
       number: parseInt(values.number),
     };
-    const register = await catchPokemon({
+    const insert = await catchPokemon({
       method: "post",
       url: "/release-pokemon",
       data: reqBody,
     });
-    console.log("ini register", register.data);
+    console.log("ini insert", insert.data);
     dispatch({
       type: INSERT_POKEMON,
-      payload: register.data,
+      payload: insert.data,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const setUpdatePokemonAction = (values, id) => async (dispatch) => {
+  try {
+    console.log("ini values", values);
+    let reqBody = {
+      pokemon_name: values,
+    };
+    const update = await catchPokemon({
+      method: "put",
+      url: "/rename-pokemon/" + id,
+      data: reqBody,
+    });
+    console.log("ini register", update.data);
+    dispatch({
+      type: UPDATE_POKEMON,
+      payload: update.data,
     });
   } catch (error) {
     console.log(error);

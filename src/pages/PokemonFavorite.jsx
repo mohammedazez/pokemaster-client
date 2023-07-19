@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import pokemonAction from "../redux/actions/pokemonActions";
+import { setUpdatePokemonAction } from "../redux/actions/pokemonActions";
+import styled from "styled-components";
+import Swal from "sweetalert2";
 
 const PokemonFavorite = () => {
   const dispatch = useDispatch();
@@ -10,6 +13,53 @@ const PokemonFavorite = () => {
   useEffect(() => {
     dispatch(pokemonAction.fetchPokemonFavoriteAction());
   }, [dispatch]);
+
+  const handleCatch = () => {
+    Swal.fire({
+      title: "Update Pokemon",
+      html: `<input type="text" id="nickname" class="swal2-input" placeholder="Nickname">`,
+      confirmButtonText: "Update",
+      focusConfirm: false,
+      preConfirm: () => {
+        const nickname = Swal.getPopup().querySelector("#nickname").value;
+        if (!nickname) {
+          Swal.showValidationMessage(`Please enter lnickname`);
+        }
+        return { nickname: nickname };
+      },
+    }).then((result) => {
+      let insert = "";
+      let id = "eae36311-e42e-4999-b707-ad9163fc92d7";
+      insert = result.value.nickname;
+      dispatch(setUpdatePokemonAction(insert, id));
+      Swal.fire({
+        icon: "success",
+        title: "Your pokemon has been update",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      window.location.reload();
+    });
+  };
+
+  const Button = styled.button`
+    cursor: pointer;
+    background: #c1292e;
+    font-size: 17px;
+    border-radius: 5px;
+    border: 3px solid #c1292e;
+    padding: 0.25em 0.5em;
+    transition: 0.2s all ease-out;
+    color: #f4f4f6;
+    font-weight: bold;
+    text-transform: capitalize;
+    width: 100%;
+
+    &:hover {
+      background-color: #f4f4f6;
+      color: #c1292e;
+    }
+  `;
 
   return (
     <>
@@ -50,6 +100,7 @@ const PokemonFavorite = () => {
                         </h4>
                         <p className="card-title">Number: {item.number}</p>
                       </div>
+                      <Button onClick={handleCatch}>Update</Button>
                     </div>
                   </div>
                 );
