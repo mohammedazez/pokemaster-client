@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const Axios = axios.create({
-  baseURL: "https://pokemaster-af3f8e6d4ac3.herokuapp.com",
+  baseURL: "https://pokemaster-af3f8e6d4ac3.herokuapp.com/api/v1/pokemon",
 });
 
 // Add a request interceptor
