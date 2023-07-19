@@ -30,11 +30,14 @@ export const catchPokemonAction = () => async (dispatch) => {
 
 export const setInsertPokemonAction = (values) => async (dispatch) => {
   try {
-    console.log("ini values", values);
+    const data = localStorage.getItem("accessToken");
+    const parsedData = JSON.parse(data);
+    const idValue = parsedData.id;
     let reqBody = {
       pokemon_name: values.pokemon_name,
       pokemon_picture: values.pokemon_picture,
       number: parseInt(values.number),
+      user_id: idValue,
     };
     const insert = await catchPokemon({
       method: "post",
@@ -81,9 +84,21 @@ export const setUpdatePokemonAction = (values, id) => async (dispatch) => {
 
 const fetchPokemonFavoriteAction = () => async (dispatch) => {
   try {
+    const data = localStorage.getItem("accessToken");
+    const parsedData = JSON.parse(data);
+    const idValue = parsedData.id;
+
+    console.log(idValue);
+
+    const queryParams = {
+      user_id: idValue,
+      // favorite: true,
+    };
+    const queryString = new URLSearchParams(queryParams).toString();
+
     const response = await catchPokemon({
       method: "get",
-      url: "/list-pokemon",
+      url: `/list-pokemon?${queryString}`,
     });
     // console.log("ini response", response);
     dispatch({

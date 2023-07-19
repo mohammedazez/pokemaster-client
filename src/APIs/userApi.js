@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const Axios = axios.create({
-  baseURL: "https://6073839ce4e0160017ddfaa6.mockapi.io/pokemaster",
+  baseURL: "https://64b7a2a821b9aa6eb078aeb2.mockapi.io/pokemaster",
 });
 
 // Add a request interceptor

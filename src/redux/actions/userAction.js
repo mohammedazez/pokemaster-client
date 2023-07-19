@@ -6,61 +6,61 @@ import {
 } from "../actionsType/userType";
 import axios from "../../APIs/userApi";
 import Swal from "sweetalert2";
+import Axios from "../../APIs/userApi";
 
-export const setRegisterActions = (values, event, history) => async (
-  dispatch
-) => {
-  event.preventDefault();
-  console.log("ini values", values);
-  try {
-    const checkEmail = await axios({
-      method: "get",
-      url: "/users",
-      data: values,
-    });
-    let dataUser = checkEmail.data.filter(
-      (item) => item.email === values.email
-    );
-    if (dataUser.length > 0) {
-      if (dataUser[0].email === values.email)
-        return Swal.fire({
-          title: "Email Sudah Terdaftar",
-          icon: "warning",
-          timer: 3000,
-        });
-    }
-
-    if (!dataUser.length) {
-      const register = await axios({
-        method: "post",
+export const setRegisterActions =
+  (values, event, history) => async (dispatch) => {
+    event.preventDefault();
+    console.log("ini values", values);
+    try {
+      const checkEmail = await axios({
+        method: "get",
         url: "/users",
         data: values,
       });
-      console.log("ini register", register.data);
-      dispatch({
-        type: USER_REGISTER,
-        payload: register.data,
-      });
-
-      if (register.data.email !== register.data) {
-        Swal.fire({
-          title: "Berhasil mendaftar",
-          icon: "success",
-          timer: 3000,
-        });
-        history.push("/login");
-      } else {
-        Swal.fire({
-          title: "Gagal Mendaftar",
-          icon: "warning",
-          timer: 3000,
-        });
+      let dataUser = checkEmail.data.filter(
+        (item) => item.email === values.email
+      );
+      if (dataUser.length > 0) {
+        if (dataUser[0].email === values.email)
+          return Swal.fire({
+            title: "Email Sudah Terdaftar",
+            icon: "warning",
+            timer: 3000,
+          });
       }
+
+      if (!dataUser.length) {
+        const register = await axios({
+          method: "post",
+          url: "/users",
+          data: values,
+        });
+        console.log("ini register", register.data);
+        dispatch({
+          type: USER_REGISTER,
+          payload: register.data,
+        });
+
+        if (register.data.email !== register.data) {
+          Swal.fire({
+            title: "Berhasil mendaftar",
+            icon: "success",
+            timer: 3000,
+          });
+          history.push("/login");
+        } else {
+          Swal.fire({
+            title: "Gagal Mendaftar",
+            icon: "warning",
+            timer: 3000,
+          });
+        }
+      }
+    } catch (error) {
+      console.log(error);
     }
-  } catch (error) {
-    console.log(error);
-  }
-};
+  };
 
 export const setLoginActions = (values, event, history) => async (dispatch) => {
   event.preventDefault();
@@ -129,21 +129,3 @@ export const userLogoutActions = (history) => {
     history.push("/");
   };
 };
-
-// export const getUserInfoActions = () => async (dispatch) => {
-//   try {
-//     let test = localStorage.getItem("accessToken");
-//     const userInfo = await axios({
-//       method: "get",
-//       url: "/users",
-//       data: test,
-//     });
-//     console.log("ini userinfo", userInfo.data);
-//     dispatch({
-//       type: USER_INFO,
-//       payload: userInfo.data,
-//     });
-//   } catch (error) {
-//     console.log("error", error);
-//   }
-// };
