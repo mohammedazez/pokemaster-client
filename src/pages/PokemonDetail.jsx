@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams, Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import pokemonAction from "../redux/actions/pokemonActions";
 import {
-  pokemonFavorite,
   catchPokemonAction,
   setInsertPokemonAction,
 } from "../redux/actions/pokemonActions";
@@ -23,47 +22,14 @@ const PokemonDetail = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [insert, setInsert] = useState({
-    pokemon_name: "",
-    pokemon_picture: "",
-    number: "",
-  });
-
-  console.log("insert", insert);
-
-  // show detail data pokemon
   const listPokemonDetail = useSelector((state) => state.pokemon.detail);
-  // console.log("listPokemonDetail", listPokemonDetail);
-
   const catchPokemon = useSelector((state) => state.pokemon.dataCatch);
-  console.log("catchPokemon", catchPokemon);
 
   const { name } = useParams();
   useEffect(() => {
     dispatch(pokemonAction.fetchPokemonDetail(name));
     // eslint-disable-next-line
   }, [dispatch]);
-
-  // fungsi klik untuk favorite pokomon
-  const handleClick = (event) => {
-    if (listPokemonDetail === "") {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Something went wrong!",
-        footer: "<a href>Why do I have this issue?</a>",
-      });
-    } else {
-      dispatch(pokemonFavorite(event));
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Add Favourite Success",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    }
-  };
 
   // fungsi klik untuk login terlebih dahulu
   const handleLogin = () => {
@@ -115,9 +81,11 @@ const PokemonDetail = () => {
             },
           }).then((result) => {
             if (result.value) {
-              insert.pokemon_name = result.value.nickname;
-              insert.pokemon_picture = `https://img.pokemondb.net/artwork/large/${listPokemonDetail.name}.jpg`;
-              insert.number = result.value.number;
+              let insert = {
+                pokemon_name: result.value.nickname,
+                pokemon_picture: `https://img.pokemondb.net/artwork/large/${listPokemonDetail.name}.jpg`,
+                number: result.value.number,
+              };
 
               dispatch(setInsertPokemonAction(insert));
             }
@@ -162,7 +130,6 @@ const PokemonDetail = () => {
       <div className="container-fluid ttl-container" id="dark-type">
         <div className="container">
           <br />
-          {/* {console.log(listPokemonDetail)} */}
           <div className="row">
             <div className="col-md">
               <div className="container-fluid container-md">
@@ -172,11 +139,6 @@ const PokemonDetail = () => {
                       <FavButton className="btn-fav">Back</FavButton>
                     </Link>
                   </div>
-                  {/* <div className="col-md">
-                    <FavButton onClick={handleCatch} className="btn-fav">
-                      Catch Pokemon
-                    </FavButton>
-                  </div> */}
                   <div className="col-md">
                     {!localStorage.getItem("accessToken") ? (
                       <FavButton onClick={handleLogin}>
@@ -313,7 +275,6 @@ const PokemonDetail = () => {
                           );
                         })}
                     </h5>
-                    {/* {console.log(listPokemonDetail.stats)} */}
                     <ResponsiveContainer
                       width={450}
                       minWeidth={100}

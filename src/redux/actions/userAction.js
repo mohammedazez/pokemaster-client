@@ -6,12 +6,10 @@ import {
 } from "../actionsType/userType";
 import axios from "../../APIs/userApi";
 import Swal from "sweetalert2";
-import Axios from "../../APIs/userApi";
 
 export const setRegisterActions =
   (values, event, history) => async (dispatch) => {
     event.preventDefault();
-    console.log("ini values", values);
     try {
       const checkEmail = await axios({
         method: "get",
@@ -36,7 +34,6 @@ export const setRegisterActions =
           url: "/users",
           data: values,
         });
-        console.log("ini register", register.data);
         dispatch({
           type: USER_REGISTER,
           payload: register.data,
@@ -64,18 +61,14 @@ export const setRegisterActions =
 
 export const setLoginActions = (values, event, history) => async (dispatch) => {
   event.preventDefault();
-  console.log("ini values login", values);
   try {
     const login = await axios({
       method: "get",
       url: "/users",
       data: values,
     });
-    console.log("ini login", login.data);
 
     let user = login.data.filter((item) => item.email === values.email);
-
-    console.log("ini user", user);
     if (!user.length > 0)
       return Swal.fire({
         title: "Gagal Login",

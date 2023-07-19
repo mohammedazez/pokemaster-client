@@ -18,7 +18,6 @@ const Login = () => {
       ...login,
       [e.target.name]: e.target.value,
     });
-    // console.log(login);
   };
 
   const handleSubmit = (event) => {

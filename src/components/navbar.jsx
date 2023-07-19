@@ -91,13 +91,9 @@ function Navbar() {
                 </>
               ) : (
                 <>
-                  {/* dropdown */}
                   <div className="kebawah">
                     <button className="kebawah-tombol">Menus</button>
                     <div className="kebawah-content">
-                      {/* <Link to="/profile">
-                        <p className="teks-kebawah">Profile</p>
-                      </Link> */}
                       <Link to="/pokemonfavorite">
                         <p className="teks-kebawah">My Pokemon</p>
                       </Link>
@@ -109,25 +105,6 @@ function Navbar() {
                       </div>
                     </div>
                   </div>
-                  {/* dropdown */}
-
-                  {/* <li className="nav-item">
-                    <Link className="nav-link" to="/pokemonfavorite">
-                      My Pokémon
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/profile">
-                      Profile
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link">
-                      <LoginButton onClick={() => logoutSuccess()}>
-                        Logout
-                      </LoginButton>
-                    </Link>
-                  </li> */}
                 </>
               )}
             </ul>

@@ -18,7 +18,6 @@ export const catchPokemonAction = () => async (dispatch) => {
       method: "get",
       url: "/catch-probability",
     });
-    // console.log("ini response", response);
     dispatch({
       type: CATCH_POKEMON,
       payload: response.data,
@@ -63,7 +62,6 @@ export const setInsertPokemonAction = (values) => async (dispatch) => {
 
 export const setUpdatePokemonAction = (values, id) => async (dispatch) => {
   try {
-    console.log("ini values", values);
     let reqBody = {
       pokemon_name: values,
     };
@@ -72,7 +70,6 @@ export const setUpdatePokemonAction = (values, id) => async (dispatch) => {
       url: "/rename-pokemon/" + id,
       data: reqBody,
     });
-    console.log("ini register", update.data);
     dispatch({
       type: UPDATE_POKEMON,
       payload: update.data,
@@ -88,11 +85,8 @@ const fetchPokemonFavoriteAction = () => async (dispatch) => {
     const parsedData = JSON.parse(data);
     const idValue = parsedData.id;
 
-    console.log(idValue);
-
     const queryParams = {
       user_id: idValue,
-      // favorite: true,
     };
     const queryString = new URLSearchParams(queryParams).toString();
 
@@ -100,7 +94,6 @@ const fetchPokemonFavoriteAction = () => async (dispatch) => {
       method: "get",
       url: `/list-pokemon?${queryString}`,
     });
-    // console.log("ini response", response);
     dispatch({
       type: FETCH_POKEMON_FAVORITE,
       payload: response.data,
@@ -116,7 +109,6 @@ const fetchPokemon = () => async (dispatch) => {
       method: "get",
       url: "/pokemon?limit=100&offset=200",
     });
-    // console.log("ini response", response);
     dispatch({
       type: FETCH_POKEMON,
       payload: response.data,
@@ -132,7 +124,6 @@ const fetchPokemonDetail = (name) => async (dispatch) => {
       method: "get",
       url: `/pokemon/${name}`,
     });
-    // console.log("ini response detail", response);
     dispatch({
       type: FETCH_POKEMON_DETAIL,
       payload: response.data,

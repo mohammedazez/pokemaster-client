@@ -6,7 +6,6 @@ import {
 } from "../actionsType/userType";
 
 const token = localStorage.getItem("accessToken");
-// console.log("ini token", token);
 
 const initialState = token
   ? {
@@ -19,8 +18,6 @@ const initialState = token
       data: [],
       error: null,
     };
-
-// console.log("ini initialState", initialState);
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {

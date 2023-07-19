@@ -9,7 +9,6 @@ const PokemonFavorite = () => {
   const dispatch = useDispatch();
 
   const pokemon = useSelector((state) => state.pokemon.dataPokemonFavorite);
-  console.log("list pokemon", pokemon);
   useEffect(() => {
     dispatch(pokemonAction.fetchPokemonFavoriteAction());
   }, [dispatch]);

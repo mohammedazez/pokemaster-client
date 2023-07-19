@@ -9,7 +9,6 @@ const Pokemon = () => {
   const history = useHistory();
 
   const pokemon = useSelector((state) => state.pokemon.dataApi);
-  // console.log("Ini list pokemon pokemon.jsx", pokemon);
   useEffect(() => {
     dispatch(pokemonAction.fetchPokemon());
   }, [dispatch]);
