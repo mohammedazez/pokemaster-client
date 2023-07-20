@@ -11,5 +11,16 @@
 ### APIs :
 
 1. https://pokeapi.co/docs/v2
-2. http://mockapi.io/
+2. http://mockapi.io/ for login and register
+3. https://pokemaster-af3f8e6d4ac3.herokuapp.com/
    
+### Tech Stack :
+1. React JS
+2. Redux
+3. Golang
+4. Javascript
+5. MySQL
+6. Netlify
+7. Heroku
+8. MockApi
+9. Github
