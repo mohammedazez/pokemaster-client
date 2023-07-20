@@ -38,7 +38,6 @@ const PokemonFavorite = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        window.location.reload();
       }
     });
   };
@@ -113,6 +112,7 @@ const PokemonFavorite = () => {
                         .includes(search.toLowerCase());
                 })
                 .map((item, index) => {
+                  console.log("Pokemon ID:", item.id);
                   return (
                     <div className="col-md crd-col" key={index}>
                       <div

@@ -95,9 +95,9 @@ const PokemonDetail = () => {
     } else if (catchPokemon.data.success === false) {
       Swal.fire({
         title: `<strong>${catchPokemon.data.information}</strong>`,
-        html: `Probability ${catchPokemon.data.probability}`,
+        html: `Probability ${catchPokemon.data.probability} </br> Click button catch to try again`,
         icon: "error",
-        cancelButtonText: '<i class="fa fa-thumbs-down">Try Again</i>',
+        cancelButtonText: '<i class="fa fa-thumbs-down">Ok</i>',
       });
     }
   };

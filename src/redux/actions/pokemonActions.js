@@ -74,6 +74,8 @@ export const setUpdatePokemonAction = (values, id) => async (dispatch) => {
       type: UPDATE_POKEMON,
       payload: update.data,
     });
+
+    window.location.reload();
   } catch (error) {
     console.log(error);
   }
