@@ -21,6 +21,7 @@
 4. Javascript
 5. MySQL
 6. Netlify
-7. Heroku
-8. MockApi
-9. Github
+7. Vercel
+8. Heroku
+9. MockApi
+10. Github
