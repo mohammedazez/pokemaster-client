@@ -14,18 +14,20 @@ export const setRegisterActions =
       const checkEmail = await axios({
         method: "get",
         url: "/users",
-        data: values,
+        params: { email: values.email }, // Send the email as a parameter
       });
-      let dataUser = checkEmail.data.filter(
+
+      console.log("check");
+      let dataUser = checkEmail.data.data.filter(
         (item) => item.email === values.email
-      );
+      ); // Access the data array in the response
+
       if (dataUser.length > 0) {
-        if (dataUser[0].email === values.email)
-          return Swal.fire({
-            title: "Email Sudah Terdaftar",
-            icon: "warning",
-            timer: 3000,
-          });
+        return Swal.fire({
+          title: "Email Sudah Terdaftar",
+          icon: "warning",
+          timer: 3000,
+        });
       }
 
       if (!dataUser.length) {
@@ -68,25 +70,22 @@ export const setLoginActions = (values, event, history) => async (dispatch) => {
       data: values,
     });
 
-    let user = login.data.filter((item) => item.email === values.email);
-    if (!user.length > 0)
+    let user = login.data.data.filter((item) => item.email === values.email);
+    if (!user.length > 0) {
       return Swal.fire({
         title: "Gagal Login",
         icon: "warning",
         timer: 3000,
       });
-    if (user[0].email !== values.email)
-      return Swal.fire({
-        title: "Email Salah",
-        icon: "warning",
-        timer: 3000,
-      });
-    if (user[0].password !== values.password)
+    }
+
+    if (user[0].password !== values.password) {
       return Swal.fire({
         title: "Password Salah",
         icon: "warning",
         timer: 3000,
       });
+    }
 
     if (user[0].password === values.password) {
       localStorage.setItem("accessToken", JSON.stringify(user[0]));
